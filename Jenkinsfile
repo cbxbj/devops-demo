@@ -35,29 +35,30 @@ pipeline{
       steps{
          sh 'pwd && ls -alh'
          sh 'mvn -v'
+         // 打包 --> .jar
+         sh 'mvn clean package -Dmaven.test.skip=true'
       }
     }
 
     // 2、测试
     stage('测试'){
       steps{
-        // 要做的所有事情
         echo "测试..."
       }
     }
 
-    // 3、打包
-    stage('打包'){
+    // 3、生成镜像
+    stage('生成镜像'){
       steps{
-        // 要做的所有事情
-        echo "打包..."
+        echo "生成镜像..."
+        sh 'docker version'
+        sh 'pwd && ls -alh'
       }
     }
 
     // 4、部署
     stage('部署'){
       steps{
-        // 要做的所有事情
         echo "部署..."
       }
     }
