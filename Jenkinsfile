@@ -29,14 +29,15 @@ pipeline{
 
     // 1、编译
     stage('编译'){
-      agent {
-        docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' }
+      docker {
+        image 'maven:3.9.3-eclipse-temurin-17'
+        args '-v $HOME/.m2:/root/.m2'
       }
       steps{
          sh 'pwd && ls -alh'
          sh 'mvn -v'
-         // 打包 --> .jar
-         sh 'mvn clean package -Dmaven.test.skip=true'
+         // 打包 --> .jar 使用阿里云
+         sh 'mvn clean package -s "/var/jenkins_home/appconfig/maven/setting.xml" -Dmaven.test.skip=true'
       }
     }
 
