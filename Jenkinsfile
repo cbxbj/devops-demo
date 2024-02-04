@@ -1,4 +1,5 @@
 pipeline{
+
   // 任何一个代理可用就可以执行
   agent any
 
@@ -10,6 +11,7 @@ pipeline{
 
   // 定义流水线的加工流程
   stages{
+
     // 流水线的所有阶段
     stage('环境检查'){
       steps{
@@ -18,9 +20,13 @@ pipeline{
         sh 'git --version'
         sh 'docker version'
         sh 'pwd && ls -alh'
+        // 取环境变量值都用双引号
+        sh "echo $hello"
+        sh "echo ${cicd}"
         //sh 'mvn -v'
       }
     }
+
     // 1、编译
     stage('编译'){
       agent {
@@ -55,8 +61,7 @@ pipeline{
         echo "部署..."
       }
     }
+
   }
-
-
 
 }
