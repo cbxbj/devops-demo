@@ -29,8 +29,8 @@ pipeline{
 
     // 1、编译
     stage('编译'){
-      docker {
-        image 'maven:3.9.3-eclipse-temurin-17'
+      agent {
+        docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' }
       }
       steps{
          sh 'pwd && ls -alh'
