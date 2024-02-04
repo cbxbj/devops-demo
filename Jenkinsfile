@@ -18,6 +18,8 @@ pipeline{
          echo "编译..."
          echo "$hello"
          echo "${cicd}"
+         sh 'pwd && ls -alh'
+         sh 'printenv'
       }
     }
 
