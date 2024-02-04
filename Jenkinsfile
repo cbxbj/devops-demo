@@ -33,7 +33,7 @@ pipeline{
         docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' }
       }
       steps{
-         sh 'pwd && ls -alh'
+         sh 'pwd && ls -alh '
          sh 'mvn -v'
          sh 'cd /var/jenkins_home/workspace && ls -alh'
          // 打包 --> .jar 使用阿里云
