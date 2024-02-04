@@ -7,6 +7,7 @@ pipeline{
   environment {
     hello = "123"
     cicd = "456"
+    WS = "${WORKSPACE}"
   }
 
   // 定义流水线的加工流程
@@ -29,6 +30,7 @@ pipeline{
 
     // 1、编译
     stage('编译'){
+      // 使用agent后,目录会变成临时目录
       agent {
         docker {
           image 'maven:3.9.3-eclipse-temurin-17'
@@ -40,7 +42,7 @@ pipeline{
          sh 'pwd && ls -alh '
          sh 'mvn -v'
          // 打包 --> .jar 使用阿里云
-         sh 'mvn clean package -Dmaven.test.skip=true'
+         sh ' cd ${WS} && mvn clean package -Dmaven.test.skip=true'
       }
     }
 
@@ -55,8 +57,7 @@ pipeline{
     stage('生成镜像'){
       steps{
         echo "生成镜像..."
-        sh 'docker version'
-        sh 'pwd && ls -alh'
+        sh 'docker build -t devops-demo .'
       }
     }
 
@@ -64,6 +65,8 @@ pipeline{
     stage('部署'){
       steps{
         echo "部署..."
+        sh 'docker rm -f devops-demo'
+        sh 'docker run -d -p 8888:8080 --name=devops-demo devops-demo'
       }
     }
 
