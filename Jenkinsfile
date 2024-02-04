@@ -37,7 +37,7 @@ pipeline{
          sh 'mvn -v'
          sh 'cd /var/jenkins_home/workspace && ls -alh'
          // 打包 --> .jar 使用阿里云
-         sh 'mvn clean package -s "/var/jenkins_home/workspace/appconfig/maven/settings.xml"  -Dmaven.test.skip=true'
+         sh 'mvn clean package  -Dmaven.test.skip=true'
       }
     }
 
