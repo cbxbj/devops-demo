@@ -32,8 +32,8 @@ pipeline{
       agent {
         docker {
           image 'maven:3.9.3-eclipse-temurin-17'
-          args '-v /var/jenkins_home/appconfig/maven/settings.xml:/usr/share/maven/ref/settings-docker.xml'
-          args '-v /var/jenkins_home/appconfig/maven/.m2:/root/.m2'
+          args '-v /var/lib/docker/volumes/jenkins-data/_data/appconfig/maven/settings.xml:/usr/share/maven/ref/settings-docker.xml'
+          args '-v /var/lib/docker/volumes/jenkins-data/_data/appconfig/maven/.m2:/root/.m2'
         }
       }
       steps{
