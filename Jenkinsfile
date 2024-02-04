@@ -17,18 +17,18 @@ pipeline{
         sh 'java -version'
         sh 'git --version'
         sh 'docker version'
+        sh 'pwd && ls -alh'
         //sh 'mvn -v'
       }
     }
     // 1、编译
     stage('编译'){
+      agent{
+        docker { image 'maven:3-alpine'}
+      }
       steps{
-        // 要做的所有事情
-         echo "编译..."
-         echo "$hello"
-         echo "${cicd}"
          sh 'pwd && ls -alh'
-         sh 'printenv'
+         sh 'mvn -v'
       }
     }
 
